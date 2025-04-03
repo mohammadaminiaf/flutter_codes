@@ -18,6 +18,8 @@ class PasswordTextfield extends StatelessWidget {
   final bool? enabled;
   final String? Function(String?)? validator;
 
+  final ValueNotifier<bool> _hidePassword = ValueNotifier<bool>(true);
+  
   PasswordTextfield({
     super.key,
     this.controller,
@@ -37,8 +39,6 @@ class PasswordTextfield extends StatelessWidget {
     this.enabled,
     this.validator,
   });
-
-  final ValueNotifier<bool> _hidePassword = ValueNotifier<bool>(true);
 
   String? _validatePassword(String? value) {
     if (validator != null) {

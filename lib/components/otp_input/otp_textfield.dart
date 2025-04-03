@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 enum StyleType { bordered, underline }
 
-class OTPTextFeild extends StatefulWidget {
+class OTPTextField extends StatefulWidget {
   final double spacing;
   final double verticalPadding;
   final int length;
@@ -14,7 +14,7 @@ class OTPTextFeild extends StatefulWidget {
   final TextStyle textStyle;
   final Function(String)? onComplete;
 
-  const OTPTextFeild({
+  const OTPTextField({
     super.key,
     this.length = 4,
     this.styleType = StyleType.bordered,
@@ -32,16 +32,16 @@ class OTPTextFeild extends StatefulWidget {
   }) : assert(length >= 4 && length <= 8, 'Length must be between 4 and 8');
 
   @override
-  State<OTPTextFeild> createState() => _OTPTextFeildState();
+  State<OTPTextField> createState() => _OTPTextFieldState();
 }
 
-class _OTPTextFeildState extends State<OTPTextFeild> {
+class _OTPTextFieldState extends State<OTPTextField> {
   late final List<TextEditingController> _controllers;
   late final List<FocusNode> _focusNodes;
   bool _isDisposed = false;
 
   @override
-  void didUpdateWidget(OTPTextFeild oldWidget) {
+  void didUpdateWidget(OTPTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.length != widget.length) {
       // Dispose old controllers and nodes
@@ -156,35 +156,49 @@ class _OTPTextFeildState extends State<OTPTextFeild> {
     super.dispose();
   }
 
+  // Helper method to build a text field
+  Widget _buildTextField(int index) {
+    return TextField(
+      controller: _controllers[index],
+      focusNode: _focusNodes[index],
+      textAlign: TextAlign.center,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(1),
+      ],
+      decoration: _buildDecoration(index),
+      onChanged: (value) => _handleChanged(value, index),
+      onSubmitted: (value) => _handleChanged(value, index),
+      onEditingComplete: () => _checkComplete(),
+      onTap: () => _controllers[index].selection = TextSelection.collapsed(
+        offset: _controllers[index].text.length,
+      ),
+      style: widget.textStyle,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: widget.spacing,
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(widget.length, (index) {
-        return Expanded(
-          child: TextField(
-            controller: _controllers[index],
-            focusNode: _focusNodes[index],
-            textAlign: TextAlign.center,
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-              LengthLimitingTextInputFormatter(1),
-            ],
-            decoration: _buildDecoration(index),
-            onChanged: (value) => _handleChanged(value, index),
-            onSubmitted: (value) => _handleChanged(value, index),
-            onEditingComplete: () => _checkComplete(),
-            onTap:
-                () =>
-                    _controllers[index].selection = TextSelection.collapsed(
-                      offset: _controllers[index].text.length,
-                    ),
-            style: widget.textStyle,
-          ),
-        );
+        // Create a row with proper spacing between items
+        if (index == 0) {
+          // First item doesn't need left padding
+          return Expanded(
+            child: _buildTextField(index),
+          );
+        } else {
+          // Add spacing between items
+          return Padding(
+            padding: EdgeInsets.only(left: widget.spacing),
+            child: Expanded(
+              child: _buildTextField(index),
+            ),
+          );
+        }
       }),
     );
   }

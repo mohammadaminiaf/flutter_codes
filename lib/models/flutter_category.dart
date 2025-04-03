@@ -6,7 +6,8 @@ enum FlutterCategory {
   drawer('Drawer', 'drawer'),
   snackbar('Snackbar', 'snackbar'),
   bottomNavigationBar('Bottom Navigation Bar', 'bottom_navigation_bar'),
-  loadingIndicator('Loading Indicator', 'loading_indicator');
+  loadingIndicator('Loading Indicator', 'loading_indicator'),
+  image('Image', 'image');
 
   final String name;
   final String value;

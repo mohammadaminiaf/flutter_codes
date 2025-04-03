@@ -54,8 +54,8 @@ class ComponentGridItem extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: component.widget,
-              ), 
+                child: component.widgetBuilder(component.currentCustomization), // Fixed by properly calling the widgetBuilder function with currentCustomization
+              ),
             )
           ],
         ),

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 enum StyleType { bordered, underline }
 
-class OTPTextFeild extends StatefulWidget {
+class OTPTextField extends StatefulWidget {
   final double spacing;
   final double verticalPadding;
   final int length;
@@ -14,7 +14,7 @@ class OTPTextFeild extends StatefulWidget {
   final TextStyle textStyle;
   final Function(String)? onComplete;
 
-  const OTPTextFeild({
+  const OTPTextField({
     super.key,
     this.length = 4,
     this.styleType = StyleType.bordered,
@@ -32,16 +32,16 @@ class OTPTextFeild extends StatefulWidget {
   }) : assert(length >= 4 && length <= 8, 'Length must be between 4 and 8');
 
   @override
-  State<OTPTextFeild> createState() => _OTPTextFeildState();
+  State<OTPTextField> createState() => _OTPTextFieldState();
 }
 
-class _OTPTextFeildState extends State<OTPTextFeild> {
+class _OTPTextFieldState extends State<OTPTextField> {
   late final List<TextEditingController> _controllers;
   late final List<FocusNode> _focusNodes;
   bool _isDisposed = false;
 
   @override
-  void didUpdateWidget(OTPTextFeild oldWidget) {
+  void didUpdateWidget(OTPTextField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.length != widget.length) {
       // Dispose old controllers and nodes
