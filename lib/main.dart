@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'providers/component_provider.dart';
 import 'screens/screen_home.dart';
 
 void main() {
@@ -13,8 +12,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => ComponentProvider(),
+    return ProviderScope(
       child: MaterialApp(
         title: 'Flutter UI Components',
         theme: ThemeData(

@@ -13,6 +13,7 @@ class ButtonCustomizationModel extends CustomizationModel {
   double elevation;
   double width;
   double height;
+  bool enabled;
   
   ButtonCustomizationModel({
     this.text = 'Button',
@@ -24,6 +25,7 @@ class ButtonCustomizationModel extends CustomizationModel {
     this.elevation = 4.0,
     this.width = 200.0,
     this.height = 52.0,
+    this.enabled = true,
   });
   
   @override
@@ -38,6 +40,7 @@ class ButtonCustomizationModel extends CustomizationModel {
       'elevation': elevation,
       'width': width,
       'height': height,
+      'enabled': enabled,
     };
   }
   
@@ -53,6 +56,7 @@ class ButtonCustomizationModel extends CustomizationModel {
       elevation: map['elevation'] ?? 4.0,
       width: map['width'] ?? 200.0,
       height: map['height'] ?? 52.0,
+      enabled: map['enabled'] ?? true,
     );
   }
   
@@ -66,6 +70,7 @@ class ButtonCustomizationModel extends CustomizationModel {
     double? elevation,
     double? width,
     double? height,
+    bool? enabled,
   }) {
     return ButtonCustomizationModel(
       text: text ?? this.text,
@@ -77,6 +82,7 @@ class ButtonCustomizationModel extends CustomizationModel {
       elevation: elevation ?? this.elevation,
       width: width ?? this.width,
       height: height ?? this.height,
+      enabled: enabled ?? this.enabled,
     );
   }
 }

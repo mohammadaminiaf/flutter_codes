@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/models/flutter_category.dart';
-import '/providers/component_provider.dart';
+import '/providers/component_riverpod_provider.dart';
 import '../views/components_grid_view.dart';
 
-class ScreenHome extends StatefulWidget {
+class ScreenHome extends ConsumerStatefulWidget {
   const ScreenHome({super.key});
 
   @override
-  State<ScreenHome> createState() => _ScreenHomeState();
+  ConsumerState<ScreenHome> createState() => _ScreenHomeState();
 }
 
-class _ScreenHomeState extends State<ScreenHome> with SingleTickerProviderStateMixin {
+class _ScreenHomeState extends ConsumerState<ScreenHome> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -30,8 +30,9 @@ class _ScreenHomeState extends State<ScreenHome> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final componentProvider = Provider.of<ComponentProvider>(context);
-    final categories = FlutterCategory.values;
+    final categories = ref.watch(categoriesProvider);
+    // If categoriesProvider doesn't return FlutterCategory.values directly, use this instead
+    // final categories = FlutterCategory.values;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +46,8 @@ class _ScreenHomeState extends State<ScreenHome> with SingleTickerProviderStateM
       body: TabBarView(
         controller: _tabController,
         children: categories.map((category) {
-          final categoryComponents = componentProvider.getComponentsByCategory(category);
+          // Use Riverpod provider to get components by category
+          final categoryComponents = ref.watch(componentsByCategoryProvider(category));
           return ComponentsGridView(components: categoryComponents);
         }).toList(),
       ),

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/models/component_model.dart';
 import '/models/customization_models/textfield_customization_model.dart';
-import '/providers/component_provider.dart';
+import '/providers/customization_provider.dart';
 import 'common/section_title.dart';
 import 'common/color_picker_field.dart';
 import 'common/custom_slider.dart';
 import 'common/custom_switch.dart';
 import 'common/reset_button.dart';
 
-/// Panel for customizing text field components
-class TextFieldCustomizationPanel extends StatelessWidget {
+/// Panel for customizing text field components using Riverpod
+class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
   final ComponentModel component;
   final TextFieldCustomizationModel model;
 
-  const TextFieldCustomizationPanel({
+  const TextFieldCustomizationPanelRiverpod({
     super.key, 
     required this.component, 
     required this.model
   });
 
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<ComponentProvider>(context, listen: false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(customizationProvider.notifier);
 
     return SingleChildScrollView(
       child: Column(
@@ -35,7 +35,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             controller: TextEditingController(text: model.labelText),
             onChanged: (value) {
               final updatedModel = model.copyWith(labelText: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 8),
@@ -44,7 +44,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             controller: TextEditingController(text: model.hintText),
             onChanged: (value) {
               final updatedModel = model.copyWith(hintText: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -55,7 +55,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             color: model.fillColor,
             onColorChanged: (color) {
               final updatedModel = model.copyWith(fillColor: color);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 8),
@@ -64,7 +64,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             color: model.textColor,
             onColorChanged: (color) {
               final updatedModel = model.copyWith(textColor: color);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -77,7 +77,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             max: 30,
             onChanged: (value) {
               final updatedModel = model.copyWith(borderRadius: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -88,7 +88,7 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             value: model.hasBorder,
             onChanged: (value) {
               final updatedModel = model.copyWith(hasBorder: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           CustomSwitch(
@@ -96,12 +96,17 @@ class TextFieldCustomizationPanel extends StatelessWidget {
             value: model.obscureText,
             onChanged: (value) {
               final updatedModel = model.copyWith(obscureText: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           
-          ResetButton(componentId: component.id),
+          ResetButton(
+            componentId: component.id,
+            onPressed: () {
+              notifier.resetComponentCustomization(component.id);
+            },
+          ),
         ],
       ),
     );

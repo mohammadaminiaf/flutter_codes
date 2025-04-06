@@ -28,8 +28,8 @@ class TextFieldCustomizationModel extends CustomizationModel {
       'labelText': labelText,
       'hintText': hintText,
       'obscureText': obscureText,
-      'fillColor': fillColor.r,
-      'textColor': textColor.r,
+      'fillColor': fillColor.value,
+      'textColor': textColor.value,
       'borderRadius': borderRadius,
       'hasBorder': hasBorder,
     };

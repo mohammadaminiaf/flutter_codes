@@ -72,6 +72,7 @@ final List<ComponentModel> components = [
         elevation: model?.elevation ?? 4.0,
         width: model?.width ?? 200.0,
         height: model?.height ?? 52.0,
+        onPressed: model?.enabled == false ? null : () {},
       );
     },
     codeFilePath: 'round_button.txt',
@@ -90,7 +91,7 @@ final List<ComponentModel> components = [
     widgetBuilder: (customization) {
       final model = customization as OtpTextFieldCustomizationModel?;
       return OTPTextField(
-        length: model?.length ?? 4,
+        length: model?.fieldCount ?? 4,
         spacing: model?.spacing ?? 8.0,
         styleType: model?.styleType ?? StyleType.bordered,
         borderColor: model?.borderColor ?? Colors.grey,

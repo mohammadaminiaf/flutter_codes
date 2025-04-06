@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/models/component_model.dart';
-import '../screens/screen_component_details.dart';
+import '../screens/screen_component_details_riverpod.dart';
 
 class ComponentGridItem extends StatelessWidget {
   final ComponentModel component;
@@ -10,21 +10,23 @@ class ComponentGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () {
+    return GestureDetector(
+     onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => ScreenComponentDetails(component: component),
+              builder: (context) => ScreenComponentDetailsRiverpod(
+                component: component,
+              ),
             ),
           );
         },
+      child: SizedBox(
+        height: 300,
+        width: 300,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Component name as header
+            // Header
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(8.0),
@@ -37,26 +39,26 @@ class ComponentGridItem extends StatelessWidget {
                 ),
               ),
             ),
-            // Component description
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  component.description,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+            // Description
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                component.description,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
-
-            // Component itself
-            Expanded(
+            // TextField with Flexible
+            // Component preview with proper constraints
+            SizedBox(
+              height: 200,
+              width: 200,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: component.widgetBuilder(component.currentCustomization), // Fixed by properly calling the widgetBuilder function with currentCustomization
+                child: component.widgetBuilder(component.currentCustomization),
               ),
-            )
+            ),
           ],
         ),
       ),

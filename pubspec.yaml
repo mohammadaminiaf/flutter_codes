@@ -12,15 +12,15 @@ dependencies:
   flutter_highlight: ^0.7.0
   flutter_syntax_view: ^4.0.0
   google_fonts: ^6.1.0
-  provider: ^6.1.1
   flutter_hooks: ^0.20.3
   iconsax: ^0.0.8
-  flutter_bloc: ^9.1.0
+  flutter_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  msix: ^3.16.8
 
 flutter:
   uses-material-design: true
@@ -28,3 +28,11 @@ flutter:
   assets:
     - assets/images/
     - assets/component_codes/
+
+msix_config:
+  display_name: Flutter Codes
+  publisher_display_name: Top Developers
+  identity_name: topdevelopers.com.fluttercode
+  msix_version: 1.0.0.0
+  logo_path: assets/images/logo.png
+  capabilities: Music

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/models/component_model.dart';
-import '/widgets/component_preview.dart';
+import '/widgets/component_preview_riverpod.dart';
 import '/widgets/source_code_viewer.dart';
-import '/widgets/customization_panel.dart';
+import '/widgets/customization_panel_riverpod.dart';
 
-class ScreenComponentDetails extends StatefulWidget {
+class ScreenComponentDetailsRiverpod extends ConsumerStatefulWidget {
   final ComponentModel component;
 
-  const ScreenComponentDetails({super.key, required this.component});
+  const ScreenComponentDetailsRiverpod({super.key, required this.component});
 
   @override
-  State<ScreenComponentDetails> createState() => _ScreenComponentDetailsState();
+  ConsumerState<ScreenComponentDetailsRiverpod> createState() => _ScreenComponentDetailsRiverpodState();
 }
 
-class _ScreenComponentDetailsState extends State<ScreenComponentDetails> with SingleTickerProviderStateMixin {
+class _ScreenComponentDetailsRiverpodState extends ConsumerState<ScreenComponentDetailsRiverpod> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   
   @override
@@ -69,7 +70,7 @@ class _ScreenComponentDetailsState extends State<ScreenComponentDetails> with Si
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
-                  child: Center(child: ComponentPreview(component: widget.component)),
+                  child: Center(child: ComponentPreviewRiverpod(component: widget.component)),
                 ),
               ],
             ),
@@ -93,11 +94,11 @@ class _ScreenComponentDetailsState extends State<ScreenComponentDetails> with Si
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
-                  child: Center(child: ComponentPreview(component: widget.component)),
+                  child: Center(child: ComponentPreviewRiverpod(component: widget.component)),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: CustomizationPanel(component: widget.component),
+                  child: CustomizationPanelRiverpod(component: widget.component),
                 ),
               ],
             ),
@@ -122,4 +123,3 @@ class _ScreenComponentDetailsState extends State<ScreenComponentDetails> with Si
     );
   }
 }
-

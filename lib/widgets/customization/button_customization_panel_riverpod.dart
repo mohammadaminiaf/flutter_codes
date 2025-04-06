@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/models/component_model.dart';
 import '/models/customization_models/button_customization_model.dart';
-import '/providers/component_provider.dart';
+import '/providers/customization_provider.dart';
 import 'common/section_title.dart';
 import 'common/color_picker_field.dart';
 import 'common/custom_slider.dart';
 import 'common/custom_switch.dart';
 import 'common/reset_button.dart';
 
-/// Panel for customizing button components
-class ButtonCustomizationPanel extends StatelessWidget {
+/// Panel for customizing button components using Riverpod
+class ButtonCustomizationPanelRiverpod extends ConsumerWidget {
   final ComponentModel component;
   final ButtonCustomizationModel model;
 
-  const ButtonCustomizationPanel({
+  const ButtonCustomizationPanelRiverpod({
     super.key, 
     required this.component, 
     required this.model
   });
 
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<ComponentProvider>(context, listen: false);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(customizationProvider.notifier);
 
     return SingleChildScrollView(
       child: Column(
@@ -35,7 +35,7 @@ class ButtonCustomizationPanel extends StatelessWidget {
             controller: TextEditingController(text: model.text),
             onChanged: (value) {
               final updatedModel = model.copyWith(text: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -46,7 +46,7 @@ class ButtonCustomizationPanel extends StatelessWidget {
             color: model.backgroundColor,
             onColorChanged: (color) {
               final updatedModel = model.copyWith(backgroundColor: color);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 8),
@@ -55,7 +55,7 @@ class ButtonCustomizationPanel extends StatelessWidget {
             color: model.textColor,
             onColorChanged: (color) {
               final updatedModel = model.copyWith(textColor: color);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -65,10 +65,20 @@ class ButtonCustomizationPanel extends StatelessWidget {
             label: 'Border Radius',
             value: model.borderRadius,
             min: 0,
-            max: 50,
+            max: 30,
             onChanged: (value) {
               final updatedModel = model.copyWith(borderRadius: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
+            },
+          ),
+          CustomSlider(
+            label: 'Elevation',
+            value: model.elevation,
+            min: 0,
+            max: 20,
+            onChanged: (value) {
+              final updatedModel = model.copyWith(elevation: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
@@ -77,58 +87,42 @@ class ButtonCustomizationPanel extends StatelessWidget {
           CustomSlider(
             label: 'Width',
             value: model.width,
-            min: 100,
+            min: 50,
             max: 300,
             onChanged: (value) {
               final updatedModel = model.copyWith(width: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           CustomSlider(
             label: 'Height',
             value: model.height,
             min: 30,
-            max: 80,
+            max: 100,
             onChanged: (value) {
               final updatedModel = model.copyWith(height: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 16),
           
-          const SectionTitle(title: 'Style'),
+          const SectionTitle(title: 'Options'),
           CustomSwitch(
-            label: 'Outlined',
-            value: model.isOutlined,
+            label: 'Enabled',
+            value: model.enabled,
             onChanged: (value) {
-              final updatedModel = model.copyWith(isOutlined: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
+              final updatedModel = model.copyWith(enabled: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
-          CustomSlider(
-            label: 'Elevation',
-            value: model.elevation,
-            min: 0,
-            max: 10,
-            onChanged: (value) {
-              final updatedModel = model.copyWith(elevation: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
-            },
-          ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           
-          const SectionTitle(title: 'State'),
-          CustomSwitch(
-            label: 'Loading',
-            value: model.isLoading,
-            onChanged: (value) {
-              final updatedModel = model.copyWith(isLoading: value);
-              provider.updateComponentCustomization(component.id, updatedModel);
-            },
+          ResetButton(
+            componentId: component.id,
+            // : () {
+            //   notifier.resetComponentCustomization(component.id);
+            // },
           ),
-          const SizedBox(height: 16),
-          
-          ResetButton(componentId: component.id),
         ],
       ),
     );
