@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/customization_provider.dart';
+import '../../../providers/customization_provider/customization_provider.dart';
 
 /// A reusable reset button widget for customization panels
 class ResetButton extends ConsumerWidget {

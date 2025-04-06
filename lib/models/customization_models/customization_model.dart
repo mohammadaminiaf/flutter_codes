@@ -3,10 +3,3 @@ abstract class CustomizationModel {
   Map<String, dynamic> toMap();
   CustomizationModel fromMap(Map<String, dynamic> map);
 }
-
-
-
-
-
-
-

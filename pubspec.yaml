@@ -12,7 +12,7 @@ dependencies:
   flutter_highlight: ^0.7.0
   flutter_syntax_view: ^4.0.0
   google_fonts: ^6.1.0
-  flutter_hooks: ^0.20.3
+  flutter_hooks: ^0.21.2
   iconsax: ^0.0.8
   flutter_riverpod: ^2.6.1
 

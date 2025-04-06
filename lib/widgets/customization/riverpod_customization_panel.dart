@@ -7,7 +7,7 @@ import '/models/customization_models/circular_image_customization_model.dart';
 import '/models/customization_models/customization_model.dart';
 import '/models/customization_models/otp_customization_model.dart';
 import '/models/customization_models/textfield_customization_model.dart';
-import '/providers/customization_provider.dart';
+import '../../providers/customization_provider/customization_provider.dart';
 import 'button_customization_panel_riverpod.dart';
 import 'textfield_customization_panel_riverpod.dart';
 import 'otp_textfield_customization_panel_riverpod.dart';

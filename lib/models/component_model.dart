@@ -72,6 +72,10 @@ final List<ComponentModel> components = [
         elevation: model?.elevation ?? 4.0,
         width: model?.width ?? 200.0,
         height: model?.height ?? 52.0,
+        textStyle: TextStyle(
+          fontSize: model?.fontSize ?? 16.0,
+          fontWeight: FontWeight.w600,
+        ),
         onPressed: model?.enabled == false ? null : () {},
       );
     },

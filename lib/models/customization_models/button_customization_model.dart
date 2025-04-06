@@ -7,6 +7,7 @@ class ButtonCustomizationModel extends CustomizationModel {
   String text;
   Color backgroundColor;
   Color textColor;
+  final double fontSize;
   double borderRadius;
   bool isLoading;
   bool isOutlined;
@@ -14,11 +15,12 @@ class ButtonCustomizationModel extends CustomizationModel {
   double width;
   double height;
   bool enabled;
-  
+
   ButtonCustomizationModel({
     this.text = 'Button',
     this.backgroundColor = Colors.blue,
     this.textColor = Colors.white,
+    this.fontSize = 16.0,
     this.borderRadius = 28.0,
     this.isLoading = false,
     this.isOutlined = false,
@@ -27,13 +29,14 @@ class ButtonCustomizationModel extends CustomizationModel {
     this.height = 52.0,
     this.enabled = true,
   });
-  
+
   @override
   Map<String, dynamic> toMap() {
     return {
       'text': text,
       'backgroundColor': backgroundColor.r,
       'textColor': textColor.r,
+      'fontSize': fontSize,
       'borderRadius': borderRadius,
       'isLoading': isLoading,
       'isOutlined': isOutlined,
@@ -43,13 +46,14 @@ class ButtonCustomizationModel extends CustomizationModel {
       'enabled': enabled,
     };
   }
-  
+
   @override
   CustomizationModel fromMap(Map<String, dynamic> map) {
     return ButtonCustomizationModel(
       text: map['text'] ?? 'Button',
       backgroundColor: Color(map['backgroundColor'] ?? Colors.blue.r),
       textColor: Color(map['textColor'] ?? Colors.white.r),
+      fontSize: map['fontSize'] ?? 16.0,
       borderRadius: map['borderRadius'] ?? 28.0,
       isLoading: map['isLoading'] ?? false,
       isOutlined: map['isOutlined'] ?? false,
@@ -59,11 +63,12 @@ class ButtonCustomizationModel extends CustomizationModel {
       enabled: map['enabled'] ?? true,
     );
   }
-  
+
   ButtonCustomizationModel copyWith({
     String? text,
     Color? backgroundColor,
     Color? textColor,
+    double? fontSize,
     double? borderRadius,
     bool? isLoading,
     bool? isOutlined,
@@ -76,6 +81,7 @@ class ButtonCustomizationModel extends CustomizationModel {
       text: text ?? this.text,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textColor: textColor ?? this.textColor,
+      fontSize: fontSize ?? this.fontSize,
       borderRadius: borderRadius ?? this.borderRadius,
       isLoading: isLoading ?? this.isLoading,
       isOutlined: isOutlined ?? this.isOutlined,

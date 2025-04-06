@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '/models/component_model.dart';
 import '/models/customization_models/otp_customization_model.dart';
-import '/providers/customization_provider.dart';
+import '../../providers/customization_provider/customization_provider.dart';
 import 'common/section_title.dart';
 import 'common/color_picker_field.dart';
 import 'common/custom_slider.dart';
