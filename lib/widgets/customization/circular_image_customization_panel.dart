@@ -11,14 +11,14 @@ import 'common/custom_switch.dart';
 import 'common/reset_button.dart';
 
 /// Panel for customizing circular image components using Riverpod
-class CircularImageCustomizationPanelRiverpod extends ConsumerWidget {
+class CircularImageCustomizationPanel extends ConsumerWidget {
   final ComponentModel component;
   final CircularImageCustomizationModel model;
 
-  const CircularImageCustomizationPanelRiverpod({
-    super.key, 
-    required this.component, 
-    required this.model
+  const CircularImageCustomizationPanel({
+    super.key,
+    required this.component,
+    required this.model,
   });
 
   @override
@@ -41,7 +41,7 @@ class CircularImageCustomizationPanelRiverpod extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 16),
-          
+
           const SectionTitle(title: 'Border'),
           CustomSlider(
             label: 'Border Width',
@@ -63,7 +63,7 @@ class CircularImageCustomizationPanelRiverpod extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 16),
-          
+
           const SectionTitle(title: 'Appearance'),
           CustomSwitch(
             label: 'Show Edit Icon',
@@ -78,12 +78,14 @@ class CircularImageCustomizationPanelRiverpod extends ConsumerWidget {
             label: 'Edit Icon Background',
             color: model.editIconBackgroundColor,
             onColorChanged: (color) {
-              final updatedModel = model.copyWith(editIconBackgroundColor: color);
+              final updatedModel = model.copyWith(
+                editIconBackgroundColor: color,
+              );
               notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
           const SizedBox(height: 24),
-          
+
           ResetButton(
             componentId: component.id,
             onPressed: () {

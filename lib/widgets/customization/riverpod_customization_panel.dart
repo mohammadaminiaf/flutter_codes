@@ -11,7 +11,7 @@ import '../../providers/customization_provider/customization_provider.dart';
 import 'button_customization_panel_riverpod.dart';
 import 'textfield_customization_panel_riverpod.dart';
 import 'otp_textfield_customization_panel_riverpod.dart';
-import 'circular_image_customization_panel_riverpod.dart';
+import 'circular_image_customization_panel.dart';
 
 /// Main customization panel that delegates to the appropriate panel based on component type
 class RiverpodCustomizationPanel extends ConsumerWidget {
@@ -21,7 +21,9 @@ class RiverpodCustomizationPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final customization = ref.watch(componentCustomizationProvider(component.id));
+    final customization = ref.watch(
+      componentCustomizationProvider(component.id),
+    );
 
     // Determine which customization panel to show based on the component's customization model type
     if (customization is ButtonCustomizationModel) {
@@ -40,7 +42,7 @@ class RiverpodCustomizationPanel extends ConsumerWidget {
         model: customization as OtpTextFieldCustomizationModel,
       );
     } else if (customization is CircularImageCustomizationModel) {
-      return CircularImageCustomizationPanelRiverpod(
+      return CircularImageCustomizationPanel(
         component: component,
         model: customization as CircularImageCustomizationModel,
       );

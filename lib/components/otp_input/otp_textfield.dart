@@ -172,34 +172,45 @@ class _OTPTextFieldState extends State<OTPTextField> {
       onChanged: (value) => _handleChanged(value, index),
       onSubmitted: (value) => _handleChanged(value, index),
       onEditingComplete: () => _checkComplete(),
-      onTap: () => _controllers[index].selection = TextSelection.collapsed(
-        offset: _controllers[index].text.length,
-      ),
+      onTap:
+          () =>
+              _controllers[index].selection = TextSelection.collapsed(
+                offset: _controllers[index].text.length,
+              ),
       style: widget.textStyle,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(widget.length, (index) {
-        // Create a row with proper spacing between items
-        if (index == 0) {
-          // First item doesn't need left padding
-          return Expanded(
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minHeight: 50,
+        maxHeight: 80,
+        minWidth: 200,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(widget.length, (index) {
+          final textField = SizedBox(
+            width: 50,
+            height: 60,
             child: _buildTextField(index),
           );
-        } else {
-          // Add spacing between items
-          return Padding(
-            padding: EdgeInsets.only(left: widget.spacing),
-            child: Expanded(
-              child: _buildTextField(index),
-            ),
-          );
-        }
-      }),
+
+          // Create a row with proper spacing between items
+          if (index == 0) {
+            // First item doesn't need left padding
+            return textField;
+          } else {
+            // Add spacing between items
+            return Padding(
+              padding: EdgeInsets.only(left: widget.spacing),
+              child: textField,
+            );
+          }
+        }),
+      ),
     );
   }
 }

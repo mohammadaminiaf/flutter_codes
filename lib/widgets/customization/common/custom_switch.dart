@@ -15,15 +15,13 @@ class CustomSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(label),
-        Switch(
-          value: value,
-          onChanged: onChanged,
-        ),
-      ],
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [Text(label), Switch(value: value, onChanged: onChanged)],
+      ),
     );
   }
 }

@@ -34,6 +34,7 @@ class ComponentModel {
 }
 
 final List<ComponentModel> components = [
+  //! Password Text Field
   ComponentModel(
     id: '1',
     name: 'Password Text Field',
@@ -55,6 +56,8 @@ final List<ComponentModel> components = [
       obscureText: true,
     ),
   ),
+
+  //! Round Button
   ComponentModel(
     id: '2',
     name: 'Round Button',
@@ -86,6 +89,8 @@ final List<ComponentModel> components = [
       textColor: Colors.white,
     ),
   ),
+
+  //! OTP Text Field
   ComponentModel(
     id: '3',
     name: 'OTP Text Field',
@@ -104,8 +109,10 @@ final List<ComponentModel> components = [
       );
     },
     codeFilePath: 'otp_textfield.txt',
-    defaultCustomization: OtpTextFieldCustomizationModel()
+    defaultCustomization: OtpTextFieldCustomizationModel(),
   ),
+
+  //! Circular Image Picker
   ComponentModel(
     id: '4',
     name: 'Circular Image Picker',
@@ -114,7 +121,7 @@ final List<ComponentModel> components = [
     widgetBuilder: (customization) {
       final model = customization as CircularImageCustomizationModel?;
       return CircularImagePicker(
-        radius: model?.radius ?? 56.0,
+        radius: model?.radius ?? 100.0,
         overlayColor: model?.overlayColor,
         backgroundColor: model?.backgroundColor,
         image: model?.imagePath,

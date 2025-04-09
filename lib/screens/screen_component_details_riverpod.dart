@@ -12,18 +12,21 @@ class ScreenComponentDetailsRiverpod extends ConsumerStatefulWidget {
   const ScreenComponentDetailsRiverpod({super.key, required this.component});
 
   @override
-  ConsumerState<ScreenComponentDetailsRiverpod> createState() => _ScreenComponentDetailsRiverpodState();
+  ConsumerState<ScreenComponentDetailsRiverpod> createState() =>
+      _ScreenComponentDetailsRiverpodState();
 }
 
-class _ScreenComponentDetailsRiverpodState extends ConsumerState<ScreenComponentDetailsRiverpod> with SingleTickerProviderStateMixin {
+class _ScreenComponentDetailsRiverpodState
+    extends ConsumerState<ScreenComponentDetailsRiverpod>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
   }
-  
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -65,17 +68,25 @@ class _ScreenComponentDetailsRiverpodState extends ConsumerState<ScreenComponent
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.all(16.0),
+                  constraints: const BoxConstraints(
+                    minHeight: 150,
+                    minWidth: double.infinity,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
-                  child: Center(child: ComponentPreviewRiverpod(component: widget.component)),
+                  child: Center(
+                    child: ComponentPreviewRiverpod(
+                      component: widget.component,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          
+
           // Customize Tab
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -89,28 +100,41 @@ class _ScreenComponentDetailsRiverpodState extends ConsumerState<ScreenComponent
                 const SizedBox(height: 16),
                 Container(
                   padding: const EdgeInsets.all(16.0),
+                  constraints: const BoxConstraints(
+                    minHeight: 150,
+                    minWidth: double.infinity,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
-                  child: Center(child: ComponentPreviewRiverpod(component: widget.component)),
+                  child: Center(
+                    child: ComponentPreviewRiverpod(
+                      component: widget.component,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: CustomizationPanelRiverpod(component: widget.component),
+                  child: CustomizationPanelRiverpod(
+                    component: widget.component,
+                  ),
                 ),
               ],
             ),
           ),
-          
+
           // Source Code Tab
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Source Code:', style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  'Source Code:',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 const SizedBox(height: 8),
                 Expanded(
                   child: SourceCodeViewer(path: widget.component.codeFilePath),

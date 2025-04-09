@@ -19,25 +19,26 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(label),
-            Text(value.toStringAsFixed(1)),
-          ],
-        ),
-        Slider(
-          value: value,
-          min: min,
-          max: max,
-          divisions: ((max - min) * 10).toInt(),
-          label: value.toStringAsFixed(1),
-          onChanged: onChanged,
-        ),
-      ],
+    return SizedBox(
+      height: 70,
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text(label), Text(value.toStringAsFixed(1))],
+          ),
+          Slider(
+            value: value,
+            min: min,
+            max: max,
+            divisions: ((max - min) * 10).toInt(),
+            label: value.toStringAsFixed(1),
+            onChanged: onChanged,
+          ),
+        ],
+      ),
     );
   }
 }

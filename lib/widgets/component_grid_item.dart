@@ -11,18 +11,17 @@ class ComponentGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-     onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ScreenComponentDetailsRiverpod(
-                component: component,
-              ),
-            ),
-          );
-        },
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder:
+                (context) =>
+                    ScreenComponentDetailsRiverpod(component: component),
+          ),
+        );
+      },
       child: SizedBox(
         height: 300,
-        width: 300,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,7 +52,6 @@ class ComponentGridItem extends StatelessWidget {
             // Component preview with proper constraints
             SizedBox(
               height: 200,
-              width: 200,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: component.widgetBuilder(component.currentCustomization),

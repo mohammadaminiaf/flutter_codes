@@ -28,11 +28,22 @@ flutter:
   assets:
     - assets/images/
     - assets/component_codes/
+    - assets/windows/certificates/
+    - assets/windows/licenses/
 
 msix_config:
+  publisher: CN=TopDevelopers
   display_name: Flutter Codes
   publisher_display_name: Top Developers
-  identity_name: topdevelopers.com.fluttercode
-  msix_version: 1.0.0.0
+  identity_name: topdevelopers.fluttercode
+  msix_version: 1.0.0.1
+  languages: en-US
+  enable_at_startup: true
+  store: false
+  install_certificate: false
+  certificate_path: assets/windows/certificates/my_certificate.pfx
+  certificate_password: FlutterCodes002
   logo_path: assets/images/logo.png
+  licenses: assets/windows/licenses/DesktopLicense.xml
   capabilities: Music
+  publish_folder_path: build/msix

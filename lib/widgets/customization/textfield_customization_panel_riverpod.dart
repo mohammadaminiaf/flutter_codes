@@ -16,9 +16,9 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
   final TextFieldCustomizationModel model;
 
   const TextFieldCustomizationPanelRiverpod({
-    super.key, 
-    required this.component, 
-    required this.model
+    super.key,
+    required this.component,
+    required this.model,
   });
 
   @override
@@ -30,25 +30,37 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionTitle(title: 'Text'),
-          TextField(
-            decoration: const InputDecoration(labelText: 'Label Text'),
-            controller: TextEditingController(text: model.labelText),
-            onChanged: (value) {
-              final updatedModel = model.copyWith(labelText: value);
-              notifier.updateComponentCustomization(component.id, updatedModel);
-            },
+          SizedBox(
+            height: 60,
+            child: TextField(
+              decoration: const InputDecoration(labelText: 'Label Text'),
+              controller: TextEditingController(text: model.labelText),
+              onChanged: (value) {
+                final updatedModel = model.copyWith(labelText: value);
+                notifier.updateComponentCustomization(
+                  component.id,
+                  updatedModel,
+                );
+              },
+            ),
           ),
           const SizedBox(height: 8),
-          TextField(
-            decoration: const InputDecoration(labelText: 'Hint Text'),
-            controller: TextEditingController(text: model.hintText),
-            onChanged: (value) {
-              final updatedModel = model.copyWith(hintText: value);
-              notifier.updateComponentCustomization(component.id, updatedModel);
-            },
+          SizedBox(
+            height: 60,
+            child: TextField(
+              decoration: const InputDecoration(labelText: 'Hint Text'),
+              controller: TextEditingController(text: model.hintText),
+              onChanged: (value) {
+                final updatedModel = model.copyWith(hintText: value);
+                notifier.updateComponentCustomization(
+                  component.id,
+                  updatedModel,
+                );
+              },
+            ),
           ),
           const SizedBox(height: 16),
-          
+
           const SectionTitle(title: 'Appearance'),
           ColorPickerField(
             label: 'Fill Color',
@@ -68,7 +80,7 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 16),
-          
+
           const SectionTitle(title: 'Shape'),
           CustomSlider(
             label: 'Border Radius',
@@ -81,7 +93,7 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 16),
-          
+
           const SectionTitle(title: 'Options'),
           CustomSwitch(
             label: 'Has Border',
@@ -100,7 +112,7 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
             },
           ),
           const SizedBox(height: 24),
-          
+
           ResetButton(
             componentId: component.id,
             onPressed: () {
