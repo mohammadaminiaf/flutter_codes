@@ -151,6 +151,30 @@ class ButtonCustomizationPanelRiverpod extends HookWidget {
 
               const SectionTitle(title: 'Options'),
               CustomSwitch(
+                label: 'Loading State',
+                value: model.isLoading,
+                onChanged: (value) {
+                  final updatedModel = model.copyWith(isLoading: value);
+                  notifier.updateComponentCustomization(
+                    component.id,
+                    updatedModel,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              CustomSwitch(
+                label: 'Outlined',
+                value: model.isOutlined,
+                onChanged: (value) {
+                  final updatedModel = model.copyWith(isOutlined: value);
+                  notifier.updateComponentCustomization(
+                    component.id,
+                    updatedModel,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              CustomSwitch(
                 label: 'Enabled',
                 value: model.enabled,
                 onChanged: (value) {

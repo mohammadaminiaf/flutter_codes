@@ -29,6 +29,7 @@ class CircularImageCustomizationPanel extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //! Image Size
           const SectionTitle(title: 'Size'),
           CustomSlider(
             label: 'Image Size',
@@ -37,6 +38,20 @@ class CircularImageCustomizationPanel extends ConsumerWidget {
             max: 200,
             onChanged: (value) {
               final updatedModel = model.copyWith(size: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
+            },
+          ),
+          const SizedBox(height: 16),
+
+          //! Image Radius
+          const SectionTitle(title: 'Image Radius'),
+          CustomSlider(
+            label: 'Image Radius',
+            value: model.radius,
+            min: 20,
+            max: 200,
+            onChanged: (value) {
+              final updatedModel = model.copyWith(radius: value);
               notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
@@ -64,6 +79,7 @@ class CircularImageCustomizationPanel extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
 
+          //! Show Edit Icon
           const SectionTitle(title: 'Appearance'),
           CustomSwitch(
             label: 'Show Edit Icon',
@@ -73,6 +89,8 @@ class CircularImageCustomizationPanel extends ConsumerWidget {
               notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
+
+          //! Edit Icon Background color
           const SizedBox(height: 8),
           ColorPickerField(
             label: 'Edit Icon Background',

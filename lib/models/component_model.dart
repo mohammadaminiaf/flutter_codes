@@ -74,7 +74,7 @@ final List<ComponentModel> components = [
         isOutlined: model?.isOutlined ?? false,
         elevation: model?.elevation ?? 4.0,
         width: model?.width ?? 200.0,
-        height: model?.height ?? 52.0,
+        height: model?.height ?? 25.0,
         textStyle: TextStyle(
           fontSize: model?.fontSize ?? 16.0,
           fontWeight: FontWeight.w600,
@@ -126,6 +126,7 @@ final List<ComponentModel> components = [
         backgroundColor: model?.backgroundColor,
         image: model?.imagePath,
         isNetworkImage: model?.isNetworkImage ?? false,
+        showEditIcon: model?.showEditIcon ?? false,
       );
     },
     codeFilePath: 'circular_image_picker.txt',

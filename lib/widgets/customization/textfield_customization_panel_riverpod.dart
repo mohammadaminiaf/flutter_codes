@@ -30,34 +30,22 @@ class TextFieldCustomizationPanelRiverpod extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SectionTitle(title: 'Text'),
-          SizedBox(
-            height: 60,
-            child: TextField(
-              decoration: const InputDecoration(labelText: 'Label Text'),
-              controller: TextEditingController(text: model.labelText),
-              onChanged: (value) {
-                final updatedModel = model.copyWith(labelText: value);
-                notifier.updateComponentCustomization(
-                  component.id,
-                  updatedModel,
-                );
-              },
-            ),
+          TextField(
+            decoration: const InputDecoration(labelText: 'Label Text'),
+            controller: TextEditingController(text: model.labelText),
+            onChanged: (value) {
+              final updatedModel = model.copyWith(labelText: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
+            },
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            height: 60,
-            child: TextField(
-              decoration: const InputDecoration(labelText: 'Hint Text'),
-              controller: TextEditingController(text: model.hintText),
-              onChanged: (value) {
-                final updatedModel = model.copyWith(hintText: value);
-                notifier.updateComponentCustomization(
-                  component.id,
-                  updatedModel,
-                );
-              },
-            ),
+          TextField(
+            decoration: const InputDecoration(labelText: 'Hint Text'),
+            controller: TextEditingController(text: model.hintText),
+            onChanged: (value) {
+              final updatedModel = model.copyWith(hintText: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
+            },
           ),
           const SizedBox(height: 16),
 

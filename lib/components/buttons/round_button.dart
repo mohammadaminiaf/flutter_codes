@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codes/core/constants/colors.dart';
 
 class RoundButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -32,19 +33,19 @@ class RoundButton extends StatelessWidget {
     this.textStyle,
     this.gradient,
     this.width = double.infinity,
-    this.height = 52.0,
+    this.height = 25.0,
     this.borderWidth = 2.0,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultColor = isOutlined 
-        ? Colors.transparent 
-        : Theme.of(context).colorScheme.primary;
-    final Color defaultTextColor = isOutlined 
-        ? Theme.of(context).colorScheme.primary 
-        : Colors.white;
-    
+    final theme = Theme.of(context);
+
+    final Color defaultColor =
+        isOutlined ? Colors.transparent : TColors.primary;
+    final Color defaultTextColor =
+        isOutlined ? theme.colorScheme.primary : Colors.white;
+
     return SizedBox(
       width: width,
       height: height,
@@ -57,14 +58,18 @@ class RoundButton extends StatelessWidget {
           child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadius),
-              color: isOutlined ? Colors.transparent : backgroundColor ?? defaultColor,
+              color:
+                  isOutlined
+                      ? Colors.transparent
+                      : backgroundColor ?? defaultColor,
               gradient: !isOutlined ? gradient : null,
-              border: isOutlined 
-                  ? Border.all(
-                      color: borderColor ?? defaultTextColor, 
-                      width: borderWidth
-                    )
-                  : null,
+              border:
+                  isOutlined
+                      ? Border.all(
+                        color: borderColor ?? defaultTextColor,
+                        width: borderWidth,
+                      )
+                      : null,
             ),
             child: Stack(
               children: [
@@ -74,8 +79,10 @@ class RoundButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       text,
-                      style: textStyle?.copyWith(
-                          color: textColor ?? defaultTextColor) ??
+                      style:
+                          textStyle?.copyWith(
+                            color: textColor ?? defaultTextColor,
+                          ) ??
                           TextStyle(
                             color: textColor ?? defaultTextColor,
                             fontSize: 16,

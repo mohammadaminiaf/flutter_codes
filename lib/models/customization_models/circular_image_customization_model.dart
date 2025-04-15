@@ -14,7 +14,7 @@ class CircularImageCustomizationModel extends CustomizationModel {
   String? imagePath;
   bool showEditIcon;
   Color editIconBackgroundColor;
-  
+
   CircularImageCustomizationModel({
     this.radius = 56.0,
     this.size = 100.0,
@@ -27,39 +27,44 @@ class CircularImageCustomizationModel extends CustomizationModel {
     this.showEditIcon = true,
     this.editIconBackgroundColor = Colors.blue,
   });
-  
+
   @override
   Map<String, dynamic> toMap() {
     return {
       'radius': radius,
       'size': size,
       'borderWidth': borderWidth,
-      'borderColor': borderColor.value,
-      'overlayColor': overlayColor?.value,
-      'backgroundColor': backgroundColor.value,
+      'borderColor': borderColor.r,
+      'overlayColor': overlayColor?.r,
+      'backgroundColor': backgroundColor.r,
       'isNetworkImage': isNetworkImage,
       'imagePath': imagePath,
       'showEditIcon': showEditIcon,
-      'editIconBackgroundColor': editIconBackgroundColor.value,
+      'editIconBackgroundColor': editIconBackgroundColor.r,
     };
   }
-  
+
   @override
   CustomizationModel fromMap(Map<String, dynamic> map) {
     return CircularImageCustomizationModel(
       radius: map['radius'] ?? 56.0,
       size: map['size'] ?? 100.0,
       borderWidth: map['borderWidth'] ?? 2.0,
-      borderColor: map['borderColor'] != null ? Color(map['borderColor']) : Colors.blue,
-      overlayColor: map['overlayColor'] != null ? Color(map['overlayColor']) : null,
+      borderColor:
+          map['borderColor'] != null ? Color(map['borderColor']) : Colors.blue,
+      overlayColor:
+          map['overlayColor'] != null ? Color(map['overlayColor']) : null,
       backgroundColor: Color(map['backgroundColor'] ?? Colors.white.value),
       isNetworkImage: map['isNetworkImage'] ?? false,
       imagePath: map['imagePath'],
       showEditIcon: map['showEditIcon'] ?? true,
-      editIconBackgroundColor: map['editIconBackgroundColor'] != null ? Color(map['editIconBackgroundColor']) : Colors.blue,
+      editIconBackgroundColor:
+          map['editIconBackgroundColor'] != null
+              ? Color(map['editIconBackgroundColor'])
+              : Colors.blue,
     );
   }
-  
+
   CircularImageCustomizationModel copyWith({
     double? radius,
     double? size,
@@ -82,7 +87,8 @@ class CircularImageCustomizationModel extends CustomizationModel {
       isNetworkImage: isNetworkImage ?? this.isNetworkImage,
       imagePath: imagePath ?? this.imagePath,
       showEditIcon: showEditIcon ?? this.showEditIcon,
-      editIconBackgroundColor: editIconBackgroundColor ?? this.editIconBackgroundColor,
+      editIconBackgroundColor:
+          editIconBackgroundColor ?? this.editIconBackgroundColor,
     );
   }
 }

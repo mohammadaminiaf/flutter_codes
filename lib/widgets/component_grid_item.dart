@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/models/component_model.dart';
-import '../screens/screen_component_details_riverpod.dart';
+import '../screens/screen_component_details.dart';
 
 class ComponentGridItem extends StatelessWidget {
   final ComponentModel component;
@@ -16,7 +16,7 @@ class ComponentGridItem extends StatelessWidget {
           MaterialPageRoute(
             builder:
                 (context) =>
-                    ScreenComponentDetailsRiverpod(component: component),
+                    ScreenComponentDetails(component: component),
           ),
         );
       },
