@@ -16,6 +16,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
   double fieldSize;
   double borderRadius;
   bool obscureText;
+  double width;
+  double height;
   
   OtpTextFieldCustomizationModel({
     this.fieldCount = 4,
@@ -29,6 +31,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
     this.fieldSize = 50.0,
     this.borderRadius = 8.0,
     this.obscureText = false,
+    this.width = 60.0,
+    this.height = 60.0,
   });
   
   @override
@@ -45,6 +49,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
       'fieldSize': fieldSize,
       'borderRadius': borderRadius,
       'obscureText': obscureText,
+      'width': width,
+      'height': height,
     };
   }
   
@@ -62,6 +68,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
       fieldSize: map['fieldSize'] ?? 50.0,
       borderRadius: map['borderRadius'] ?? 8.0,
       obscureText: map['obscureText'] ?? false,
+      width: map['width'] ?? 60.0,
+      height: map['height'] ?? 60.0,
     );
   }
   
@@ -77,6 +85,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
     double? fieldSize,
     double? borderRadius,
     bool? obscureText,
+    double? width,
+    double? height,
   }) {
     return OtpTextFieldCustomizationModel(
       fieldCount: fieldCount ?? this.fieldCount,
@@ -90,6 +100,8 @@ class OtpTextFieldCustomizationModel extends CustomizationModel {
       fieldSize: fieldSize ?? this.fieldSize,
       borderRadius: borderRadius ?? this.borderRadius,
       obscureText: obscureText ?? this.obscureText,
+      width: width ?? this.width,
+      height: height ?? this.height,
     );
   }
 }

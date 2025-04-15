@@ -106,6 +106,8 @@ final List<ComponentModel> components = [
         borderColor: model?.borderColor ?? Colors.grey,
         focusBorderColor: model?.focusBorderColor ?? Colors.blue,
         borderWidth: model?.borderWidth ?? 2.0,
+        width: model?.width ?? 60.0,
+        height: model?.height ?? 60.0,
       );
     },
     codeFilePath: 'otp_textfield.txt',

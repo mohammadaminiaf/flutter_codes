@@ -5,7 +5,7 @@ enum StyleType { bordered, underline }
 
 class OTPTextField extends StatefulWidget {
   final double spacing;
-  final double verticalPadding;
+
   final int length;
   final StyleType styleType;
   final double borderWidth;
@@ -13,17 +13,21 @@ class OTPTextField extends StatefulWidget {
   final Color focusBorderColor;
   final TextStyle textStyle;
   final Function(String)? onComplete;
+  final double? height;
+  final double? width;
 
   const OTPTextField({
     super.key,
     this.length = 4,
     this.styleType = StyleType.bordered,
     this.onComplete,
-    this.verticalPadding = 8,
+
     this.spacing = 8,
     this.borderWidth = 2,
     this.focusBorderColor = Colors.blue,
     this.borderColor = Colors.grey,
+    this.height,
+    this.width,
     this.textStyle = const TextStyle(
       color: Colors.blue,
       fontSize: 24,
@@ -36,8 +40,8 @@ class OTPTextField extends StatefulWidget {
 }
 
 class _OTPTextFieldState extends State<OTPTextField> {
-  late final List<TextEditingController> _controllers;
-  late final List<FocusNode> _focusNodes;
+  List<TextEditingController> _controllers = [];
+  List<FocusNode> _focusNodes = [];
   bool _isDisposed = false;
 
   @override
@@ -51,9 +55,10 @@ class _OTPTextFieldState extends State<OTPTextField> {
       for (final node in _focusNodes) {
         node.dispose();
       }
-      setState(() {
-        _initializeControllersAndFocusNodes();
-      });
+      _controllers.clear();
+      _focusNodes.clear();
+      _initializeControllersAndFocusNodes();
+      setState(() {});
     }
   }
 
@@ -97,9 +102,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
             ),
           ),
           counterText: '',
-          contentPadding: EdgeInsets.symmetric(
-            vertical: widget.verticalPadding,
-          ),
+          contentPadding: EdgeInsets.zero,
         );
       case StyleType.underline:
         return InputDecoration(
@@ -183,21 +186,24 @@ class _OTPTextFieldState extends State<OTPTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(widget.length, (index) {
-        // Create a row with proper spacing between items
-        if (index == 0) {
-          // First item doesn't need left padding
-          return Expanded(child: _buildTextField(index));
-        } else {
-          // Add spacing between items
-          return Padding(
-            padding: EdgeInsets.only(left: widget.spacing),
-            child: Expanded(child: _buildTextField(index)),
-          );
-        }
-      }),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final availableWidth = constraints.maxWidth;
+        final totalSpacing = widget.spacing * (widget.length - 1);
+        final fieldWidth = (availableWidth - totalSpacing) / widget.length;
+        
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(widget.length, (index) {
+            return Container(
+              width: widget.width ?? fieldWidth,
+              margin: EdgeInsets.only(left: index > 0 ? widget.spacing : 0),
+              height: widget.height,
+              child: _buildTextField(index),
+            );
+          }),
+        );
+      },
     );
   }
 }

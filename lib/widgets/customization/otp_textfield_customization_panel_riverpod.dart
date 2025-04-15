@@ -64,12 +64,22 @@ class OtpTextFieldCustomizationPanelRiverpod extends ConsumerWidget {
           
           const SectionTitle(title: 'Shape'),
           CustomSlider(
-            label: 'Field Size',
-            value: model.fieldSize,
-            min: 30,
-            max: 80,
+            label: 'Width',
+            value: model.width,
+            min: 40,
+            max: 100,
             onChanged: (value) {
-              final updatedModel = model.copyWith(fieldSize: value);
+              final updatedModel = model.copyWith(width: value);
+              notifier.updateComponentCustomization(component.id, updatedModel);
+            },
+          ),
+          CustomSlider(
+            label: 'Height',
+            value: model.height,
+            min: 40,
+            max: 100,
+            onChanged: (value) {
+              final updatedModel = model.copyWith(height: value);
               notifier.updateComponentCustomization(component.id, updatedModel);
             },
           ),
