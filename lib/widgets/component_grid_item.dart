@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/models/component_model.dart';
-import '../screens/screen_component_details.dart';
+import '/screens/screen_component_details.dart';
 
 class ComponentGridItem extends StatelessWidget {
   final ComponentModel component;
@@ -14,14 +14,13 @@ class ComponentGridItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder:
-                (context) =>
-                    ScreenComponentDetails(component: component),
+            builder: (context) => ScreenComponentDetails(component: component),
           ),
         );
       },
       child: SizedBox(
         height: 300,
+        width: 300,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,8 +49,7 @@ class ComponentGridItem extends StatelessWidget {
             ),
             // TextField with Flexible
             // Component preview with proper constraints
-            SizedBox(
-              height: 200,
+            Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: component.widgetBuilder(component.currentCustomization),
