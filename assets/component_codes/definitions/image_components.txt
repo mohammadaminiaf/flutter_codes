@@ -7,7 +7,7 @@ import '../images/circular_image_picker.dart';
 /// Definitions for image components
 final List<ComponentDefinition> imageComponents = [
   ComponentDefinition(
-    id: 'circular_image_picker',
+    id: 'images_circular_image_picker',
     name: 'Circular Image Picker',
     description: 'A circular image picker with customizable styles',
     category: FlutterCategory.image,

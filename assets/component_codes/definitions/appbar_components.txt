@@ -7,7 +7,7 @@ import '../appbar/appbar.dart';
 /// Definitions for app bar components
 final List<ComponentDefinition> appBarComponents = [
   ComponentDefinition(
-    id: 'custom_appbar',
+    id: 'appbar_appbar',
     name: 'Custom App Bar',
     description: 'A customizable app bar with various options',
     category: FlutterCategory.appBar,

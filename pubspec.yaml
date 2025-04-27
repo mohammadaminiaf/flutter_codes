@@ -32,6 +32,7 @@ flutter:
     - assets/component_codes/
     - assets/component_codes/appbar/
     - assets/component_codes/buttons/
+    - assets/component_codes/carousels/
     - assets/component_codes/chips/
     - assets/component_codes/custom_shapes/
     - assets/component_codes/custom_shapes/containers/

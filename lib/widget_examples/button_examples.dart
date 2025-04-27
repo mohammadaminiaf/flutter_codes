@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/component_model.dart';
 import 'widget_example_base.dart';
 
 /// Example implementation for Button widgets
 class ButtonExample extends WidgetExampleBase {
   const ButtonExample({super.key, required super.component});
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,13 +21,10 @@ class ButtonExample extends WidgetExampleBase {
           // Header section
           const Text(
             'User Registration',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 24),
-          
+
           // Form fields
           const TextField(
             decoration: InputDecoration(
@@ -37,7 +33,7 @@ class ButtonExample extends WidgetExampleBase {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           const TextField(
             decoration: InputDecoration(
               labelText: 'Email',
@@ -45,7 +41,7 @@ class ButtonExample extends WidgetExampleBase {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           const TextField(
             obscureText: true,
             decoration: InputDecoration(
@@ -54,22 +50,18 @@ class ButtonExample extends WidgetExampleBase {
             ),
           ),
           const SizedBox(height: 24),
-          
+
           // Button section
           Row(
             children: [
-              Expanded(
-                child: _wrapWithBuilder(
-                  component.createWidget(),
-                ),
-              ),
+              Expanded(child: _wrapWithBuilder(component.createWidget())),
             ],
           ),
         ],
       ),
     );
   }
-  
+
   Widget _wrapWithBuilder(Widget button) {
     // If the button is too small or doesn't have text, replace it with a more visible example
     if (button is SizedBox && (button.width == null || button.width! < 100)) {
@@ -83,7 +75,7 @@ class ButtonExample extends WidgetExampleBase {
         child: const Text('Register Now'),
       );
     }
-    
+
     return button;
   }
 }

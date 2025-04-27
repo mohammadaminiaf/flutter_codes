@@ -7,7 +7,7 @@ import '../buttons/round_button.dart';
 /// Definitions for button components
 final List<ComponentDefinition> buttonComponents = [
   ComponentDefinition(
-    id: 'round_button',
+    id: 'buttons_round_button',
     name: 'Round Button',
     description: 'A custom button with rounded corners and lots of options',
     category: FlutterCategory.button,

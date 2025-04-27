@@ -16,6 +16,7 @@ enum FlutterCategory {
   view('View', 'view'),
   layout('Layout', 'layout'),
   shimmer('Shimmer', 'shimmer'),
+  carousel('Carousel', 'carousel'),
   other('Other', 'other');
 
   final String name;

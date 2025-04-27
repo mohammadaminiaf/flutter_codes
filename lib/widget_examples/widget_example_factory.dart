@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codes/widget_examples/default_example.dart';
 import '../models/component_model.dart';
 import '../models/flutter_category.dart';
 import 'appbar_examples.dart';
@@ -22,6 +23,9 @@ class WidgetExampleFactory {
 
       case FlutterCategory.button:
         return ButtonExample(component: component);
+
+      case FlutterCategory.carousel:
+        return DefaultExample(component: component);
 
       case FlutterCategory.textField:
         return TextFieldExample(component: component);

@@ -16,6 +16,11 @@ class ComponentRegistryInitializer {
       await SourceCodeGenerationService.generateSourceCodeFiles();
       debugPrint('Source code files generated');
 
+      // Note: Component definitions are now registered by ComponentLoaderService
+      debugPrint(
+        'Component definitions will be registered by ComponentLoaderService',
+      );
+
       // Load all components using the component loader service
       // This service handles loading components from all sources
       await ComponentLoaderService.loadAllComponents();

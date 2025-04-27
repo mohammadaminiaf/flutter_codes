@@ -3,12 +3,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 
+import '../components/definitions/appbar_components.dart';
+import '../components/definitions/button_components.dart';
+import '../components/definitions/carousel_components.dart';
+import '../components/definitions/image_components.dart';
 import '../models/component_definition.dart';
 import '../models/component_model.dart';
 import '../models/customization_models/common_customization_model.dart';
 import '../models/flutter_category.dart';
 import '../registry/component_registry.dart';
-import '../services/dynamic_component_factory.dart';
+import '../widgets/placeholder_widget.dart';
 
 /// A service for loading components from various sources
 class ComponentLoaderService {
@@ -22,11 +26,14 @@ class ComponentLoaderService {
     ComponentRegistry.clear();
 
     try {
-      // Load components from the file system
-      await _loadComponentsFromFileSystem();
+      // Create a map to track which components have been registered
+      final Map<String, bool> registeredComponents = {};
 
-      // Load components from definition files
-      // This is a placeholder for future implementation
+      // First, load components from definition files
+      await _loadComponentsFromDefinitions(registeredComponents);
+
+      // Then, load components from the file system that don't have definitions
+      await _loadComponentsFromFileSystem(registeredComponents);
 
       debugPrint(
         'Total components loaded: ${ComponentRegistry.getAllComponents().length}',
@@ -36,8 +43,61 @@ class ComponentLoaderService {
     }
   }
 
+  /// Load components from definition files
+  static Future<void> _loadComponentsFromDefinitions(
+    Map<String, bool> registeredComponents,
+  ) async {
+    debugPrint('Loading components from definition files...');
+
+    // Process carousel components
+    for (final definition in carouselComponents) {
+      _registerComponentDefinition(definition, registeredComponents);
+    }
+
+    // Process button components
+    for (final definition in buttonComponents) {
+      _registerComponentDefinition(definition, registeredComponents);
+    }
+
+    // Process image components
+    for (final definition in imageComponents) {
+      _registerComponentDefinition(definition, registeredComponents);
+    }
+
+    // Process appbar components
+    for (final definition in appBarComponents) {
+      _registerComponentDefinition(definition, registeredComponents);
+    }
+  }
+
+  /// Register a component definition
+  static void _registerComponentDefinition(
+    ComponentDefinition definition,
+    Map<String, bool> registeredComponents,
+  ) {
+    final id = definition.id;
+    debugPrint('Registering component definition: $id');
+
+    // Create a component model from the definition
+    final component = ComponentModel(
+      id: id,
+      name: definition.name,
+      description: definition.description,
+      category: definition.category,
+      widgetBuilder: definition.builder,
+      codeFilePath: definition.sourceCodePath,
+      defaultCustomization: definition.defaultCustomization,
+    );
+
+    // Register the component
+    ComponentRegistry.register(component);
+    registeredComponents[id] = true;
+  }
+
   /// Load components from the file system
-  static Future<void> _loadComponentsFromFileSystem() async {
+  static Future<void> _loadComponentsFromFileSystem(
+    Map<String, bool> registeredComponents,
+  ) async {
     debugPrint('Loading components from file system...');
 
     final componentsDir = Directory('lib/components');
@@ -72,6 +132,26 @@ class ComponentLoaderService {
           continue;
         }
 
+        // Generate the component ID
+        final normalizedPath = componentFile.path.replaceAll('\\', '/');
+        final pathParts =
+            normalizedPath.contains('lib/components/')
+                ? normalizedPath.split('lib/components/')
+                : normalizedPath.split('lib\\components\\');
+
+        if (pathParts.length < 2) {
+          continue;
+        }
+
+        final relativePath = pathParts[1];
+        final id = _generateComponentId(relativePath);
+
+        // Skip if this component has already been registered
+        if (registeredComponents.containsKey(id)) {
+          debugPrint('Skipping $id as it has already been registered');
+          continue;
+        }
+
         // Create a component model for the file
         final component = await _createComponentModelFromFile(
           componentFile.path,
@@ -80,6 +160,7 @@ class ComponentLoaderService {
 
         if (component != null) {
           ComponentRegistry.register(component);
+          registeredComponents[id] = true;
         }
       }
     }
@@ -161,6 +242,8 @@ class ComponentLoaderService {
         return FlutterCategory.textField;
       case 'image_text':
         return FlutterCategory.image;
+      case 'carousels':
+        return FlutterCategory.carousel;
       default:
         return FlutterCategory.other;
     }
@@ -205,25 +288,12 @@ class ComponentLoaderService {
         description: 'A $formattedName component',
         category: category,
         widgetBuilder: (customization) {
-          try {
-            // Try to create the widget using DynamicComponentFactory
-            return DynamicComponentFactory.createWidget(id);
-          } catch (e) {
-            // If that fails, show a placeholder
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Component preview not available'),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Error: $e',
-                    style: const TextStyle(fontSize: 12, color: Colors.red),
-                  ),
-                ],
-              ),
-            );
-          }
+          // Use a placeholder widget for components without a specific builder
+          return PlaceholderWidget.create(
+            id,
+            message:
+                'This component uses the default placeholder. Add a component definition for a custom preview.',
+          );
         },
         codeFilePath: sourceCodePath,
         defaultCustomization: CommonCustomizationModel(),
@@ -271,21 +341,5 @@ class ComponentLoaderService {
 
     debugPrint('Generated component ID: $id from path: $relativePath');
     return id;
-  }
-
-  /// Create a component model from a component definition
-  static ComponentModel _createComponentModelFromDefinition(
-    ComponentDefinition definition,
-  ) {
-    return ComponentModel(
-      id: definition.id,
-      name: definition.name,
-      description: definition.description,
-      category: definition.category,
-      widgetBuilder: definition.builder,
-      codeFilePath: definition.sourceCodePath,
-      tags: definition.tags,
-      defaultCustomization: definition.defaultCustomization,
-    );
   }
 }
