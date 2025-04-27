@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+/// A section heading with title and optional action button.
+class SectionHeading extends StatelessWidget {
+  /// Create a section heading.
+  ///
+  /// Parameters:
+  ///   - title: The title text for the section.
+  ///   - buttonText: Optional text for the action button.
+  ///   - onPressed: Callback function when the action button is pressed.
+  ///   - textColor: The color of the title text.
+  ///   - buttonColor: The color of the action button text.
+  const SectionHeading({
+    super.key,
+    required this.title,
+    this.buttonText,
+    this.onPressed,
+    this.textColor,
+    this.buttonColor,
+  });
+
+  final String title;
+  final String? buttonText;
+  final VoidCallback? onPressed;
+  final Color? textColor;
+  final Color? buttonColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        if (buttonText != null)
+          TextButton(
+            onPressed: onPressed,
+            child: Text(
+              buttonText!,
+              style: TextStyle(color: buttonColor),
+            ),
+          ),
+      ],
+    );
+  }
+}

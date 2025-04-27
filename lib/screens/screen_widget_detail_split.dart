@@ -173,22 +173,22 @@ class _ScreenWidgetDetailSplitState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Preview', style: Theme.of(context).textTheme.titleLarge),
+          Text('Example Usage', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8.0),
           Text(
             component.description,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          const SizedBox(height: 24.0),
+          const SizedBox(height: 16.0),
           Expanded(
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.all(24.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(color: Colors.grey.shade300),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
                 child: ComponentPreviewWrapper(component: component),
               ),
             ),
