@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/component_model.dart';
 import 'widget_example_base.dart';
 
 /// Example implementation for TextField widgets
 class TextFieldExample extends WidgetExampleBase {
   const TextFieldExample({super.key, required super.component});
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,30 +21,23 @@ class TextFieldExample extends WidgetExampleBase {
           // Header section
           const Text(
             'Payment Information',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 24),
-          
+
           // Card holder name
           const Text(
             'Card Holder Name',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           _wrapWithBuilder(component.createWidget(), 'John Doe'),
           const SizedBox(height: 16),
-          
+
           // Card number
           const Text(
             'Card Number',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           const TextField(
@@ -57,7 +49,7 @@ class TextFieldExample extends WidgetExampleBase {
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
-          
+
           // Expiry and CVV
           Row(
             children: [
@@ -67,9 +59,7 @@ class TextFieldExample extends WidgetExampleBase {
                   children: [
                     const Text(
                       'Expiry Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 8),
                     const TextField(
@@ -89,9 +79,7 @@ class TextFieldExample extends WidgetExampleBase {
                   children: [
                     const Text(
                       'CVV',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 8),
                     const TextField(
@@ -108,7 +96,7 @@ class TextFieldExample extends WidgetExampleBase {
             ],
           ),
           const SizedBox(height: 24),
-          
+
           // Submit button
           ElevatedButton(
             onPressed: () {},
@@ -121,7 +109,7 @@ class TextFieldExample extends WidgetExampleBase {
       ),
     );
   }
-  
+
   Widget _wrapWithBuilder(Widget textField, String placeholder) {
     // If the textfield doesn't have proper styling, replace it with a more visible example
     if (textField is! TextField) {
@@ -132,7 +120,7 @@ class TextFieldExample extends WidgetExampleBase {
         ),
       );
     }
-    
+
     return textField;
   }
 }

@@ -32,7 +32,7 @@ class RoundButton extends StatelessWidget {
     this.textStyle,
     this.gradient,
     this.width = double.infinity,
-    this.height = 25.0,
+    this.height = 50.0,
     this.borderWidth = 2.0,
   });
 
@@ -41,7 +41,9 @@ class RoundButton extends StatelessWidget {
     final theme = Theme.of(context);
 
     final Color defaultColor =
-        isOutlined ? Colors.transparent : const Color(0xFF4b68ff); // Primary color
+        isOutlined
+            ? Colors.transparent
+            : const Color(0xFF4b68ff); // Primary color
     final Color defaultTextColor =
         isOutlined ? theme.colorScheme.primary : Colors.white;
 
