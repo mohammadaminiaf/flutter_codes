@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+
+/// A settings menu tile with leading icon, title, and optional subtitle.
+class SettingsMenuTile extends StatelessWidget {
+  /// Create a settings menu tile.
+  ///
+  /// Parameters:
+  ///   - icon: The leading icon for the tile.
+  ///   - title: The title text for the tile.
+  ///   - subtitle: Optional subtitle text for the tile.
+  ///   - onTap: Callback function when the tile is tapped.
+  ///   - trailing: Optional trailing widget (defaults to a forward arrow).
+  ///   - showDivider: Whether to show a divider below the tile.
+  const SettingsMenuTile({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.subtitle,
+    this.onTap,
+    this.trailing,
+    this.showDivider = true,
+  });
+
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+  final bool showDivider;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(icon),
+          title: Text(title),
+          subtitle: subtitle != null ? Text(subtitle!) : null,
+          trailing: trailing ?? const Icon(Iconsax.arrow_right_3),
+          onTap: onTap,
+        ),
+        if (showDivider)
+          const Divider(),
+      ],
+    );
+  }
+}

@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
-
-import '/components/buttons/round_button.dart';
-import '/components/images/circular_image_picker.dart';
-import '/components/otp_input/otp_textfield.dart';
-import '/components/textfields/password_textfield.dart';
-import '/models/customization_models/button_customization_model.dart';
-import '/models/customization_models/circular_image_customization_model.dart';
-import '/models/customization_models/otp_customization_model.dart';
-import '/models/customization_models/textfield_customization_model.dart';
-import '/models/flutter_category.dart';
+import 'flutter_category.dart';
 import 'customization_models/customization_model.dart';
 
+/// Model class for UI components.
+/// This class is used to represent a component in the application.
 class ComponentModel {
+  /// Unique identifier for the component
   final String id;
+
+  /// Display name of the component
   final String name;
+
+  /// Description of the component
   final String description;
+
+  /// Category of the component
   final FlutterCategory category;
+
+  /// Function to build the component with customization
   final Widget Function(CustomizationModel?) widgetBuilder;
+
+  /// Path to the source code file
   final String codeFilePath;
+
+  /// Tags for additional categorization and filtering
+  final List<String> tags;
+
+  /// Default customization model for the component
   final CustomizationModel? defaultCustomization;
+
+  /// Current customization model for the component
   CustomizationModel? currentCustomization;
 
   ComponentModel({
@@ -28,110 +39,44 @@ class ComponentModel {
     required this.category,
     required this.widgetBuilder,
     required this.codeFilePath,
+    this.tags = const [],
     this.defaultCustomization,
     this.currentCustomization,
   });
-}
 
-final List<ComponentModel> components = [
-  //! Password Text Field
-  ComponentModel(
-    id: '1',
-    name: 'Password Text Field',
-    description: 'A custom text field for password with visibility toggle',
-    category: FlutterCategory.textField,
-    widgetBuilder: (customization) {
-      final model = customization as TextFieldCustomizationModel?;
-      return PasswordTextfield(
-        labelText: model?.labelText ?? 'Password',
-        hintText: model?.hintText ?? 'Enter your password',
-        fillColor: model?.fillColor,
-        textColor: model?.textColor,
+  /// Create a widget for this component
+  Widget createWidget() {
+    try {
+      debugPrint('Creating widget for component: $name (ID: $id)');
+
+      // Use the widgetBuilder function with the current customization
+      // This allows for dynamic widget creation based on customization
+      final widget = widgetBuilder(
+        currentCustomization ?? defaultCustomization,
       );
-    },
-    codeFilePath: 'password_textfield.txt',
-    defaultCustomization: TextFieldCustomizationModel(
-      labelText: 'Password',
-      hintText: 'Enter your password',
-      obscureText: true,
-    ),
-  ),
 
-  //! Round Button
-  ComponentModel(
-    id: '2',
-    name: 'Round Button',
-    description: 'A custom button with rounded corners and lots of options',
-    category: FlutterCategory.button,
-    widgetBuilder: (customization) {
-      final model = customization as ButtonCustomizationModel?;
-      return RoundButton(
-        text: model?.text ?? 'Press Me',
-        backgroundColor: model?.backgroundColor,
-        textColor: model?.textColor,
-        borderRadius: model?.borderRadius ?? 28.0,
-        isLoading: model?.isLoading ?? false,
-        isOutlined: model?.isOutlined ?? false,
-        elevation: model?.elevation ?? 4.0,
-        width: model?.width ?? 200.0,
-        height: model?.height ?? 25.0,
-        textStyle: TextStyle(
-          fontSize: model?.fontSize ?? 16.0,
-          fontWeight: FontWeight.w600,
+      debugPrint('Successfully created widget for component: $name');
+      return widget;
+    } catch (e) {
+      debugPrint('Error creating widget for component $name (ID: $id): $e');
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error, color: Colors.red, size: 32),
+            const SizedBox(height: 8),
+            Text(
+              'Error creating widget for $name',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Error: $e',
+              style: const TextStyle(fontSize: 12, color: Colors.red),
+            ),
+          ],
         ),
-        onPressed: model?.enabled == false ? null : () {},
       );
-    },
-    codeFilePath: 'round_button.txt',
-    defaultCustomization: ButtonCustomizationModel(
-      text: 'Press Me',
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    ),
-  ),
-
-  //! OTP Text Field
-  ComponentModel(
-    id: '3',
-    name: 'OTP Text Field',
-    description:
-        'A custom otp input field with customizable styles and number of digits',
-    category: FlutterCategory.textField,
-    widgetBuilder: (customization) {
-      final model = customization as OtpTextFieldCustomizationModel?;
-      return OTPTextField(
-        length: model?.fieldCount ?? 4,
-        spacing: model?.spacing ?? 8.0,
-        styleType: model?.styleType ?? StyleType.bordered,
-        borderColor: model?.borderColor ?? Colors.grey,
-        focusBorderColor: model?.focusBorderColor ?? Colors.blue,
-        borderWidth: model?.borderWidth ?? 2.0,
-        width: model?.width ?? 60.0,
-        height: model?.height ?? 60.0,
-      );
-    },
-    codeFilePath: 'otp_textfield.txt',
-    defaultCustomization: OtpTextFieldCustomizationModel(),
-  ),
-
-  //! Circular Image Picker
-  ComponentModel(
-    id: '4',
-    name: 'Circular Image Picker',
-    description: 'A circular image picker with customizable styles',
-    category: FlutterCategory.image,
-    widgetBuilder: (customization) {
-      final model = customization as CircularImageCustomizationModel?;
-      return CircularImagePicker(
-        radius: model?.radius ?? 100.0,
-        overlayColor: model?.overlayColor,
-        backgroundColor: model?.backgroundColor,
-        image: model?.imagePath,
-        isNetworkImage: model?.isNetworkImage ?? false,
-        showEditIcon: model?.showEditIcon ?? false,
-      );
-    },
-    codeFilePath: 'circular_image_picker.txt',
-    defaultCustomization: CircularImageCustomizationModel(),
-  ),
-];
+    }
+  }
+}

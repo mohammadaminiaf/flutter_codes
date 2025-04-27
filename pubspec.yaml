@@ -15,6 +15,8 @@ dependencies:
   flutter_hooks: ^0.21.2
   iconsax: ^0.0.8
   flutter_riverpod: ^2.6.1
+  shimmer: ^3.0.0
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:
@@ -24,10 +26,29 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
+
   assets:
     - assets/images/
     - assets/component_codes/
+    - assets/component_codes/appbar/
+    - assets/component_codes/buttons/
+    - assets/component_codes/chips/
+    - assets/component_codes/custom_shapes/
+    - assets/component_codes/custom_shapes/containers/
+    - assets/component_codes/custom_shapes/curved_edges/
+    - assets/component_codes/definitions/
+    - assets/component_codes/icons/
+    - assets/component_codes/images/
+    - assets/component_codes/image_text/
+    - assets/component_codes/layouts/
+    - assets/component_codes/list_tiles/
+    - assets/component_codes/otp_input/
+    - assets/component_codes/otp_textfield/
+    - assets/component_codes/shimmers/
+    - assets/component_codes/textfields/
+    - assets/component_codes/texts/
+    - assets/component_codes/text_fields/
+    - assets/component_codes/views/
     - assets/windows/certificates/
     - assets/windows/licenses/
 

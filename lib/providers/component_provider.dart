@@ -1,50 +1,43 @@
 import 'package:flutter/material.dart';
 
-import '/models/component_model.dart';
-import '/models/flutter_category.dart';
-import '../models/customization_models/customization_model.dart';
+import '../models/component_model.dart';
+import '../models/flutter_category.dart';
+import '../registry/component_registry.dart';
 
 class ComponentProvider with ChangeNotifier {
-  // Getter for all components
-  List<ComponentModel> get _components => components;
-
   // Get component by ID
-  ComponentModel getComponentById(String id) {
-    return _components.firstWhere(
-      (component) => component.id == id,
-      orElse: () => throw Exception('Component not found'),
-    );
+  ComponentModel? getComponentById(String id) {
+    return ComponentRegistry.getComponentById(id);
   }
 
   // Get components by category
   List<ComponentModel> getComponentsByCategory(FlutterCategory category) {
-    return _components
-        .where((component) => component.category == category)
-        .toList();
+    return ComponentRegistry.getComponentsByCategory(category);
+  }
+
+  // Get all components
+  List<ComponentModel> get allComponents {
+    return ComponentRegistry.getAllComponents();
   }
 
   // Get all unique categories
   List<FlutterCategory> get categories {
-    return _components.map((component) => component.category).toSet().toList();
+    return ComponentRegistry.getAllComponents()
+        .map((component) => component.category)
+        .toSet()
+        .toList();
   }
-  
-  // Update component customization
-  void updateComponentCustomization(String componentId, CustomizationModel customization) {
-    final component = getComponentById(componentId);
-    component.currentCustomization = customization;
-    notifyListeners();
-  }
-  
-  // Reset component customization to default
-  void resetComponentCustomization(String componentId) {
-    final component = getComponentById(componentId);
-    component.currentCustomization = component.defaultCustomization;
-    notifyListeners();
-  }
-  
-  // Get current customization for a component
-  CustomizationModel? getComponentCustomization(String componentId) {
-    final component = getComponentById(componentId);
-    return component.currentCustomization ?? component.defaultCustomization;
+
+  // Search components
+  List<ComponentModel> searchComponents(String query) {
+    if (query.isEmpty) {
+      return allComponents;
+    }
+
+    final lowercaseQuery = query.toLowerCase();
+    return allComponents.where((component) {
+      return component.name.toLowerCase().contains(lowercaseQuery) ||
+          component.description.toLowerCase().contains(lowercaseQuery);
+    }).toList();
   }
 }

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'screens/screen_home.dart';
+import 'registry/component_registry_initializer.dart';
+import 'screens/screen_home_new.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize the component registry
+  await ComponentRegistryInitializer.initialize();
+
   runApp(const MainApp());
 }
 
@@ -18,11 +24,9 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           useMaterial3: true,
-          textTheme: GoogleFonts.robotoTextTheme(
-            Theme.of(context).textTheme,
-          ),
+          textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         ),
-        home: const ScreenHome(),
+        home: const ScreenHomeNew(),
         debugShowCheckedModeBanner: false,
       ),
     );
