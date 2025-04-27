@@ -48,7 +48,6 @@ flutter:
     - assets/component_codes/shimmers/
     - assets/component_codes/textfields/
     - assets/component_codes/texts/
-    - assets/component_codes/text_fields/
     - assets/component_codes/views/
     - assets/windows/certificates/
     - assets/windows/licenses/
